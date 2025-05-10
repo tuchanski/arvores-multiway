@@ -15,7 +15,8 @@ public class Main {
             System.out.println("1 - Inserir chave");
             System.out.println("2 - Buscar chave");
             System.out.println("3 - Imprimir árvore");
-            System.out.println("4 - Sair");
+            System.out.println("4 - Remover chave");
+            System.out.println("5 - Sair");
             System.out.print("Escolha uma opção: ");
 
             String opcao = scanner.nextLine();
@@ -35,7 +36,12 @@ public class Main {
                     case "3":
                         arvore.imprimir();
                         break;
-                    case "4":
+                    case "4":  // Nova opção de remoção
+                        System.out.print("Digite a chave a ser removida: ");
+                        String chaveRemover = scanner.nextLine();
+                        arvore.remover(chaveRemover);
+                        break;
+                    case "5":
                         System.out.println("Saindo...");
                         return;
                     default:

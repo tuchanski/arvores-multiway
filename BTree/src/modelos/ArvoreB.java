@@ -148,6 +148,56 @@ public class ArvoreB {
         return buscar(no.filhos[i], chave);
     }
 
+    public void remover(String chave) {
+        if (raiz == null) {
+            System.out.println("Árvore vazia");
+            return;
+        }
+
+        // Chama o método de remoção recursivo
+        removerRecursivo(raiz, chave);
+
+        // Se a raiz ficou vazia, atualiza ela
+        if (raiz.numChaves == 0) {
+            if (raiz.folha) {
+                raiz = null;
+            } else {
+                raiz = raiz.filhos[0];
+            }
+        }
+    }
+
+    private void removerRecursivo(NoB no, String chave) {
+        int idx = 0;
+        // Encontra a posição da chave ou do filho onde ela estaria
+        while (idx < no.numChaves && no.chaves[idx].compareTo(chave) < 0) {
+            idx++;
+        }
+
+        // Caso 1: A chave está neste nó
+        if (idx < no.numChaves && no.chaves[idx].equals(chave)) {
+            if (no.folha) {
+                // Remove da folha (simples)
+                for (int i = idx; i < no.numChaves - 1; i++) {
+                    no.chaves[i] = no.chaves[i + 1];
+                }
+                no.numChaves--;
+            } else {
+                // Remove de nó interno (mais complexo)
+                System.out.println("Remoção de nós internos não implementada nesta versão simplificada");
+            }
+        } else {
+            // Caso 2: A chave está em um filho
+            if (no.folha) {
+                System.out.println("Chave " + chave + " não encontrada");
+                return;
+            }
+
+            // Chama recursivamente para o filho apropriado
+            removerRecursivo(no.filhos[idx], chave);
+        }
+    }
+
     // Método público para imprimir a árvore
     public void imprimir() {
         if (raiz != null) {
